@@ -6,17 +6,24 @@ const cors = require('cors');
 const { body, validationResult } = require('express-validator');
 require('dotenv').config();
 
+// import routers
+const productRouter = require("./routes/products");
+
 const app = express();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
+// Routes Begin Here
+
 app.get("/", function (req,res){
   res.json({
     "messege": "Hello World"
   })
 })
+
+app.use("/api/products", productRouter)
 
 console.log(process.env.DB_USER);
 console.log(process.env.DB_PASSWORD)
