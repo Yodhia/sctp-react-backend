@@ -12,6 +12,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", function (req,res){
+  res.json({
+    "messege": "Hello World"
+  })
+})
+
 console.log(process.env.DB_USER);
 console.log(process.env.DB_PASSWORD)
 
