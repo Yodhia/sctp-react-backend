@@ -10,12 +10,14 @@ require('dotenv').config();
 const productRouter = require("./routes/products");
 const userRouter = require('./routes/user');
 const cartRouter = require('./routes/cart');
+const userRoutes = require('./routes/user');
 
 const app = express();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+
 
 // Routes Begin Here
 
@@ -28,6 +30,7 @@ app.get("/", function (req,res){
 app.use("/api/products", productRouter)
 app.use("/api/users", userRouter);
 app.use("/api/cart", cartRouter);
+app.use('/api/users', userRoutes);
 
 console.log(process.env.DB_USER);
 console.log(process.env.DB_PASSWORD)

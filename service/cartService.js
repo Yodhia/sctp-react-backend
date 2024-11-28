@@ -8,6 +8,10 @@ async function getCartContents(userId) {
     return await cartData.getCartContents(userId)
 }
 
+async function updateCart(userId, cartItems){
+    return await cartData.updateCart(userId, cartItems)
+}
+
 module.exports = {
-    getCartContents
+    getCartContents, updateCart
 }

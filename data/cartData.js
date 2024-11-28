@@ -16,6 +16,31 @@ async function getCartContents(userId) {
     return rows;
 }
 
+// cart items is the array of objects from the React shopping cart
+async function updateCart(userId, cartItems){
+    const connection = await pool.getConnection();
+    try{
+        // begin a transaction. No changes to the database is finalised until connection.commit() is called
+        await connection.beginTransaction();
+
+        // empty the user's shopping cart
+        await connection.query(`DELETE FROM cart_items WHERE user_id=?`, [userId]);
+
+        // insert in all the items from the shopping cart
+        for (const item of cartItems){
+            await connection.query(
+                `INSERT INTO cart_items (user_id, product_id, quantity) VALUES (?, ?, ?)`,
+                [userId, item.product_id, item.quantity]
+            )
+        }
+
+
+        await connection.commit();
+    }catch (e) {
+        await connection.rollback();
+    }
+}
+
 module.exports = {
-    getCartContents
+    getCartContents, updateCart
 }

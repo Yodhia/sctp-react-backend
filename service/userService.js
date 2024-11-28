@@ -23,10 +23,26 @@ async function registerUser ({name, email, password, salutation, marketingPrefer
         marketingPreferences,
         country,
       });
+
+      
       return userId;
 
 }
 
+    async function loginUser(email, password) {
+        const user = await userData.getUserByEmail(email);
+        if (!user) {
+        throw new Error('Invalid email or password');
+        }
+    
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+        throw new Error('Invalid email or password');
+        }
+    
+        return user;
+    }
+
 module.exports = {
-    registerUser
+    registerUser, loginUser
 }
