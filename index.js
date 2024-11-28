@@ -8,6 +8,8 @@ require('dotenv').config();
 
 // import routers
 const productRouter = require("./routes/products");
+const userRouter = require('./routes/user');
+const cartRouter = require('./routes/cart');
 
 const app = express();
 
@@ -24,6 +26,8 @@ app.get("/", function (req,res){
 })
 
 app.use("/api/products", productRouter)
+app.use("/api/users", userRouter);
+app.use("/api/cart", cartRouter);
 
 console.log(process.env.DB_USER);
 console.log(process.env.DB_PASSWORD)
